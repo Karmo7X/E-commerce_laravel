@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Log;
 use Psy\Readline\Hoa\FileException;
 use Illuminate\Support\Facades\File;
 class CategoryController extends Controller

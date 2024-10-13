@@ -21,6 +21,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -31,6 +32,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
     protected $hidden = [
         'password',
         'remember_token',
+
     ];
 
     /**

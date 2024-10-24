@@ -60,7 +60,9 @@ class JWTAuthController extends Controller
         }
         return response()->json(compact('user'));
     }
-
+    public  function update(Request $request){
+        
+    }
     // User logout
     public function logout()
     {
@@ -68,4 +70,6 @@ class JWTAuthController extends Controller
 
         return response()->json(['message' => 'Successfully logged out']);
     }
+
+
 }

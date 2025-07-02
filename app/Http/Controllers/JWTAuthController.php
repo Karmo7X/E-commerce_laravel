@@ -12,24 +12,23 @@ class JWTAuthController extends Controller
 {
 
     // user regisertration
-    public function register(Request $request){
-     $validator = Validator::make($request->all(),[
-         'name' => 'required|string|max:255',
-         'email' => 'required|string|email|max:255|unique:users',
-         'password' => 'required|string|min:6|confirmed',
-         'password_confirmation' => 'required|string|min:6',
-     ]);
-     if($validator->fails()){
-         return response()->json($validator->errors()->toJson(), 400);
-     }
-     $user =User::create([
-         'name' => $request->get('name'),
-         'email' => $request->get('email'),
-         "password" => bcrypt($request->get('password')),
+    public function register(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
-     ]);
-     $token = JWTAuth::fromUser($user);
-     return response()->json(compact('token'),201);
+        $user = User::create([
+            'name'     => $validatedData['name'],
+            'email'    => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+        ]);
+
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json(['token' => $token], 201);
     }
 
     // user login
@@ -61,7 +60,7 @@ class JWTAuthController extends Controller
         return response()->json(compact('user'));
     }
     public  function update(Request $request){
-        
+
     }
     // User logout
     public function logout()
